@@ -13,3 +13,5 @@ services:
       - ./:/usr/src/app
     ports:
       - 4000:4000
+    depends_on:
+      - db
