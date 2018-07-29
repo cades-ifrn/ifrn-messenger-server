@@ -5,7 +5,12 @@ defmodule IfrnmessengerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", IfrnmessengerWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/graphql", Absinthe.Plug.GraphiQL,
+      schema: IfrnmessengerWeb.Schema,
+      inferface: :simple,
+      context: %{pubsub: IfrnmessengerWeb.Endpoint}
   end
 end
