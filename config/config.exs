@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :ifrnmessenger,
-  ecto_repos: [Ifrnmessenger.Repo]
+  ecto_repos: [Ifrnmessenger.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
 config :ifrnmessenger, IfrnmessengerWeb.Endpoint,

@@ -1,4 +1,8 @@
-defmodule CommunityWeb.SuapService do
+defmodule Ifrnmessenger.SuapService do
+  @moduledoc """
+  The SUAP API Client service.
+  """
+
   defp url(endpoint) do
     "https://suap.ifrn.edu.br/api/v2" <> endpoint
   end
