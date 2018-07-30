@@ -28,5 +28,11 @@ defmodule IfrnmessengerWeb.Schema do
 
       resolve &AuthResolver.obtain_token/3
     end
+
+    field :refresh_token, :token_type do
+      arg :token, non_null(:string)
+
+      resolve &AuthResolver.refresh_token/3
+    end
   end
 end

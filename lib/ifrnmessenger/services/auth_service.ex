@@ -13,8 +13,9 @@ defmodule Ifrnmessenger.AuthService do
       user = Auth.get_user_by_registration(username)
 
       if user != nil do
-        {:ok, token, _full_claims} = Guardian.encode_and_sign(user)
-        {:ok, token}
+        with {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+          {:ok, token}
+        end
       else
         with {:ok, data} <- SuapService.about(token) do
           with {:ok, user} <- Auth.create_user(%{
@@ -24,11 +25,18 @@ defmodule Ifrnmessenger.AuthService do
             :photo => "https://suap.ifrn.edu.br" <> data[:url_foto_75x100]
           }) do
             # TODO: load classes and create conversations
-            {:ok, token, _full_claims} = Guardian.encode_and_sign(user)
-            {:ok, token}
+            with {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+              {:ok, token}
+            end
           end
         end
       end
+    end
+  end
+
+  def refresh_token(token) do
+    with {:ok, _old, {token, _claims}} <- Guardian.refresh(token) do
+      {:ok, token}
     end
   end
 end
