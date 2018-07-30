@@ -1,4 +1,4 @@
-# IFRN Messenger [![CircleCI](https://circleci.com/gh/cades-ifrn/ifrn-messenger-server/tree/master.svg?style=svg)](https://circleci.com/gh/cades-ifrn/ifrn-messenger-server/tree/master) [![codecov](https://codecov.io/gh/cades-ifrn/ifrn-messenger-server/branch/master/graph/badge.svg)](https://codecov.io/gh/cades-ifrn/ifrn-messenger-server)
+# IFRN Messenger [![CircleCI](https://circleci.com/gh/cades-ifrn/ifrn-messenger-server/tree/master.svg?style=shield)](https://circleci.com/gh/cades-ifrn/ifrn-messenger-server/tree/master) [![codecov](https://codecov.io/gh/cades-ifrn/ifrn-messenger-server/branch/master/graph/badge.svg)](https://codecov.io/gh/cades-ifrn/ifrn-messenger-server)
 
 
 #### Docker
