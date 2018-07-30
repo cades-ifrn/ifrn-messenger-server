@@ -16,7 +16,7 @@ defmodule IfrnmessengerWeb.Schema do
   end
 
   query do
-    field :current_user, non_null(:user_type) do
+    field :current_user, :user_type do
       resolve &AuthResolver.current_user/3
     end
   end
