@@ -23,6 +23,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+# Configures Guardian
+config :ifrnmessenger, Ifrnmessenger.Auth.Guardian,
+  issuer: "ifrn_messenger",
+  secret_key: "ceh26pdhpNVtUsgWul6NKT1vrR4zK8k+7REgg6Y0mGsZCNcyiOwp2Un5CD4Zb4+C"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
