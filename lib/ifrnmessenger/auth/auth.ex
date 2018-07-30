@@ -38,6 +38,25 @@ defmodule Ifrnmessenger.Auth do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single user by its registration.
+
+  ## Examples
+
+      iex> get_user_by_registration("20161014040014")
+      %User{}
+
+      iex> get_user_by_registration("20161014040015")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user_by_registration(registration) do
+    query = from u in User,
+            where: u.registration == ^registration,
+            select: u
+    Repo.one(query)
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples

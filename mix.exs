@@ -41,7 +41,8 @@ defmodule Ifrnmessenger.Mixfile do
       {:cowboy, "~> 1.0"},
       {:absinthe_ecto, "~> 0.1.3"},
       {:absinthe_plug, "~> 1.4.0"},
-      {:httpoison, "~> 1.2"}
+      {:httpoison, "~> 1.2"},
+      {:guardian, "~> 1.0"}
     ]
   end
 

@@ -3,9 +3,7 @@ defmodule Ifrnmessenger.SuapService do
   The SUAP API Client service.
   """
 
-  defp url(endpoint) do
-    "https://suap.ifrn.edu.br/api/v2" <> endpoint
-  end
+  defp url(endpoint), do: "https://suap.ifrn.edu.br/api/v2" <> endpoint
 
   defp parse_object(body) do
     body
@@ -26,43 +24,53 @@ defmodule Ifrnmessenger.SuapService do
         "password" => password
       })
 
-    {:ok, response} =
-      HTTPoison.post(
-        url("/autenticacao/token/"),
-        body,
-        [{"Content-Type", "application/json"}]
-      )
-
-    data = parse_object(response.body)
-
-    data[:token]
+    case HTTPoison.post(
+      url("/autenticacao/token/"),
+      body,
+      [{"Content-Type", "application/json"}]
+    ) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, parse_object(body)[:token]}
+      {:ok, _} ->
+        {:error, "Username and password does not match."}
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
   end
 
   def about(token) do
-    {:ok, response} =
-      HTTPoison.get(
-        url("/minhas-informacoes/meus-dados/"),
-        [{"Content-Type", "application/json"}, {"Authentication", "Bearer " <> token}]
-      )
-
-    parse_object(response.body)
+    case  HTTPoison.get(
+      url("/minhas-informacoes/meus-dados/"),
+      [{"Content-Type", "application/json"}, {"Authorization", "JWT " <> token}]
+    ) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, parse_object(body)}
+      {:ok, _} ->
+        {:error, "The user was not found."}
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
   end
 
   def semesters(token) do
+    # TODO: handle errors
+
     {:ok, response} =
       HTTPoison.get(
         url("/minhas-informacoes/meus-periodos-letivos/"),
-        [{"Content-Type", "application/json"}, {"Authentication", "Bearer " <> token}]
+        [{"Content-Type", "application/json"}, {"Authorization", "JWT " <> token}]
       )
 
     parse_list(response.body)
   end
 
   def classes(token, year, semester) do
+    # TODO: handle errors
+
     {:ok, response} =
       HTTPoison.get(
         url("/minhas-informacoes/turmas-virtuais/" <> year <> "/" <> semester <> "/"),
-        [{"Content-Type", "application/json"}, {"Authentication", "Bearer " <> token}]
+        [{"Content-Type", "application/json"}, {"Authorization", "JWT " <> token}]
       )
 
     parse_list(response.body)
