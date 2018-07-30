@@ -18,4 +18,10 @@ defmodule IfrnmessengerWeb.AuthResolver do
       {:ok, %{:token => token}}
     end
   end
+
+  def refresh_token(_root, args, _info) do
+    with {:ok, token} <- AuthService.refresh_token(args[:token]) do
+      {:ok, %{:token => token}}
+    end
+  end
 end
