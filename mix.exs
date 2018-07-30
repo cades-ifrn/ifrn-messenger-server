@@ -10,7 +10,8 @@ defmodule Ifrnmessenger.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -42,7 +43,8 @@ defmodule Ifrnmessenger.Mixfile do
       {:absinthe_ecto, "~> 0.1.3"},
       {:absinthe_plug, "~> 1.4.0"},
       {:httpoison, "~> 1.2"},
-      {:guardian, "~> 1.0"}
+      {:guardian, "~> 1.0"},
+      {:excoveralls, "~> 0.8", only: :test}
     ]
   end
 
